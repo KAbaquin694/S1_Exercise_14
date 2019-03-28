@@ -5,8 +5,8 @@
    Tutorial 12
    Tutorial Case
 
-   Author: 
-   Date:   
+   Author: Khalel Abaquin
+   Date:   3.28.19
 
    Filename: bc_outline.js
 
@@ -24,6 +24,14 @@
       the list items are based on the element names
       specified in the headings array
 
-
 */
 
+//Generate outline based on h1 through h6 headings in source document
+window.addEventListener("load", makeOutline);
+
+function makeOutline() {
+      //Location of document outline
+      var outline = document.getElementById("outline");
+      //Source document for outline
+      var source = document.getElementById("doc");
+}
