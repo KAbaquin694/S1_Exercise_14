@@ -34,4 +34,46 @@ function makeOutline() {
       var outline = document.getElementById("outline");
       //Source document for outline
       var source = document.getElementById("doc");
+
+      var mainHeading = document.createElement("h1");
+      var outlineList = document.createElement("ol");
+      var headingText = document.createTextNode("Outline");
+
+      mainHeading.appendChild(headingText);
+      outline.appendChild(mainHeading);
+      outline.appendChild(outlineList);
+
+      createList(source, outlineList);
+}
+
+function createList(source, outlineList) {
+      //Headings for outline
+      var headings = ["H1", "H2", "H3", "H4", "H5", "H6"];
+      //States previous level of the headings
+      var prevLevel = 0;
+      //Loop through all child nodes of source article until no chid nodes are left behind.
+      for (var n = source.firstChild; n !== null; n = n.nextSibling) {
+            var headLevel = headings.indexOf(n.nodeName);
+            if (headLevel !== -1) {
+                  var listElem = document.createElement("li");
+                  listElem.innerHTML = n.firstChild.nodeValue;
+                  if (headLevel === prevLevel) {
+                        //Append list item to current list
+                        outlineList.appendChild(listElem);
+                  } else if (headLevel > prevLevel) {
+                        //Start new nested list
+                        var nestedList = document.createElement("ol");
+                        nestedList.appendChild(listElem);
+                        //Append nested list to last item in current list
+                        outlineList.lastChild.appendChild(nestedList);
+                        //Change current list to nested list
+                        outlineList = nestedList;
+                  } else {
+                        //Append list item to higher list
+
+                  }
+                  //Update value of prevLevel
+                  prevLevel = headLevel;
+            }
+      }
 }
