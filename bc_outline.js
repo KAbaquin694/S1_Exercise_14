@@ -51,12 +51,24 @@ function createList(source, outlineList) {
       var headings = ["H1", "H2", "H3", "H4", "H5", "H6"];
       //States previous level of the headings
       var prevLevel = 0;
+      //Run total of article headings
+      var headNum = 0;
       //Loop through all child nodes of source article until no chid nodes are left behind.
       for (var n = source.firstChild; n !== null; n = n.nextSibling) {
             var headLevel = headings.indexOf(n.nodeName);
             if (headLevel !== -1) {
+                  //Add id to heading if it's missing
+                  headNum++;
+                  if (n.hasAttribute("id") === false) {
+                        n.setAttribute("id", "head" + headNum);
+                  }
                   var listElem = document.createElement("li");
-                  listElem.innerHTML = n.firstChild.nodeValue;
+                  //Create hypertext links to document headings
+                  var linkElem = document.createElement("a");
+                  linkElem.innerHTML = n.innerHTML;
+                  linkElem.setAttribute("href", "#" + n.id);
+                  //Append hypertext link to list item
+                  listElem.appendChild(linkElem);
                   if (headLevel === prevLevel) {
                         //Append list item to current list
                         outlineList.appendChild(listElem);
