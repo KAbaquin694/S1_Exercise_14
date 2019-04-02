@@ -82,7 +82,7 @@ function createList(source, outlineList) {
                         outlineList = nestedList;
                   } else {
                         //Append list item to higher list
-                        var levelUp = preLevel = headLevel;
+                        var levelUp = prevLevel = headLevel;
                         //Go up to higher level
                         for (var i = 1; i < levelUp; i++) {
                               outlineList = outlineList.parentNode.parentNode;
